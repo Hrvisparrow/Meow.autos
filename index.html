@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meow Autos — Mobilni servis vozila i asistencija</title>
+<meta name="description" content="Meow Autos — mobilni servis vozila, strojeva i opreme. Održavanje motornih vozila, asistencija u cestovnom prometu i tehnička podrška u autosportu. Dolazimo na vašu lokaciju.">
+<meta name="keywords" content="auto servis, mobilni servis, servis vozila, održavanje vozila, asistencija, autosport, servis strojeva, mobilni mehaničar">
+<meta name="theme-color" content="#0E63B3">
+<link rel="icon" href="logo.jpg">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Meow Autos — Servis koji dolazi do vas.">
+<meta property="og:description" content="Mobilni servis vozila, strojeva i opreme. Održavanje, cestovna asistencija i autosport podrška na vašoj lokaciji.">
+<meta property="og:image" content="logo.jpg">
+<meta property="og:locale" content="hr_HR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          blue:   { DEFAULT: '#0E63B3', 600: '#0E63B3', 700: '#0A4E8F', 400: '#4C93CF', 50: '#EAF2FA' },
+          ink:    '#12161C',
+          ash:    '#5A6472',
+          hair:   '#E2E6EA',
+          surface:'#F4F6F8',
+        },
+        fontFamily: {
+          display: ['"Chakra Petch"', 'system-ui', 'sans-serif'],
+          sans:    ['Archivo', 'system-ui', 'sans-serif'],
+          mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  :root{
+    --blue:#0E63B3; --blue-700:#0A4E8F; --blue-400:#4C93CF; --blue-50:#EAF2FA;
+    --ink:#12161C; --ash:#5A6472; --hair:#E2E6EA; --surface:#F4F6F8;
+  }
+  *{ -webkit-tap-highlight-color: transparent; }
+  html{ scroll-behavior:smooth; }
+  body{ background:#fff; color:var(--ink); font-family:'Archivo',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:var(--blue); color:#fff; }
+
+  .wrap{ max-width:1200px; margin-inline:auto; padding-inline:clamp(1.25rem,4vw,2.5rem); }
+  .section{ padding-block:clamp(4rem,8vw,7rem); }
+
+  h1,h2,h3,.font-display{ font-family:'Chakra Petch',system-ui,sans-serif; }
+  .h-display{ font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; line-height:0.98; }
+
+  /* ---- mono micro-labels / blueprint UI ---- */
+  .mono{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ash); }
+  .kicker{ display:inline-flex; align-items:center; gap:.6rem; }
+  .kicker::before{ content:""; width:8px; height:8px; background:var(--blue); flex:none; }
+  .kicker::after{ content:""; width:clamp(28px,6vw,64px); height:1px; background:var(--hair); }
+
+  .rule{ height:1px; background:var(--hair); border:0; }
+
+  .frame{ position:relative; }
+  .frame::before,.frame::after{ content:""; position:absolute; width:16px; height:16px; border:2px solid var(--blue); pointer-events:none; }
+  .frame::before{ top:-2px; left:-2px; border-right:0; border-bottom:0; }
+  .frame::after{ bottom:-2px; right:-2px; border-left:0; border-top:0; }
+
+  .spec{ display:flex; align-items:baseline; gap:.75rem; }
+  .spec .k{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ash); white-space:nowrap; }
+  .spec .lead{ flex:1; border-bottom:1px dotted #C8CED4; transform:translateY(-3px); }
+  .spec .v{ font-size:14px; color:var(--ink); }
+
+  /* ---- buttons: engineered, sharp ---- */
+  .btn{ display:inline-flex; align-items:center; gap:.6rem; font-family:'Chakra Petch',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.05em; font-size:14px; padding:15px 26px; border-radius:2px; border:1px solid transparent; transition:transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease; will-change:transform; }
+  .btn svg{ transition:transform .22s ease; }
+  .btn-primary{ background:var(--blue); color:#fff; }
+  .btn-primary:hover{ background:var(--blue-700); transform:translateY(-2px); }
+  .btn-primary:hover svg{ transform:translateX(4px); }
+  .btn-primary:active{ transform:translateY(0); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:rgba(18,22,28,.22); }
+  .btn-ghost:hover{ background:rgba(18,22,28,.04); transform:translateY(-2px); border-color:rgba(18,22,28,.4); }
+  .btn-light{ background:#fff; color:var(--ink); }
+  .btn-light:hover{ background:#EDEFF2; transform:translateY(-2px); }
+  .btn-outline-light{ background:transparent; color:#fff; border-color:rgba(255,255,255,.4); }
+  .btn-outline-light:hover{ background:rgba(255,255,255,.08); transform:translateY(-2px); }
+  .btn:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+  .btn-light:focus-visible,.btn-outline-light:focus-visible{ outline-color:#fff; }
+
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; border-radius:2px; }
+
+  /* ---- nav ---- */
+  #nav{ transition:box-shadow .25s ease, background-color .25s ease; }
+  #nav.scrolled{ box-shadow:0 1px 0 var(--hair), 0 12px 30px -18px rgba(18,22,28,.25); }
+  .navlink{ position:relative; font-size:14px; letter-spacing:.02em; }
+  .navlink::after{ content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:var(--blue); transition:width .28s cubic-bezier(.16,1,.3,1); }
+  .navlink:hover::after,.navlink:focus-visible::after{ width:100%; }
+
+  /* ---- mobile menu ---- */
+  #menu{ position:fixed; inset:0; background:var(--ink); color:#fff; z-index:60; transform:translateY(-100%); transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  #menu.open{ transform:translateY(0); }
+  #menu a.m-link{ font-family:'Chakra Petch',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.02em; font-size:clamp(1.8rem,9vw,3rem); line-height:1.1; color:#fff; }
+  #menu a.m-link:hover{ color:var(--blue-400); }
+
+  /* ---- hero blueprint panel ---- */
+  .blueprint{ background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px); background-size:34px 34px; }
+  .cut-bl{ clip-path:polygon(0 0,100% 0,100% 100%,34px 100%,0 calc(100% - 34px)); }
+  .cut-tr{ clip-path:polygon(0 0,calc(100% - 34px) 0,100% 34px,100% 100%,0 100%); }
+
+  .speedlines{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .speedlines i{ position:absolute; left:0; height:2px; background:rgba(255,255,255,.5); transform:translateX(-40%); }
+  .speedlines i:nth-child(1){ top:18%; width:38%; animation:speed 3.4s linear infinite; }
+  .speedlines i:nth-child(2){ top:34%; width:26%; animation:speed 2.6s linear infinite .4s; opacity:.7; }
+  .speedlines i:nth-child(3){ top:57%; width:44%; animation:speed 4.1s linear infinite .2s; opacity:.55; }
+  .speedlines i:nth-child(4){ top:72%; width:22%; animation:speed 2.9s linear infinite .8s; opacity:.8; }
+  .speedlines i:nth-child(5){ top:88%; width:34%; animation:speed 3.7s linear infinite .1s; opacity:.6; }
+  @keyframes speed{ from{ transform:translateX(-60%);} to{ transform:translateX(360%);} }
+
+  .spin-slow{ animation:spin 26s linear infinite; transform-origin:50% 50%; }
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+
+  .label-track{ overflow:hidden; }
+  .label-track ul{ display:flex; flex-direction:column; gap:10px; animation:labelroll 9s linear infinite; }
+  @keyframes labelroll{ 0%,18%{ transform:translateY(0);} 33%,51%{ transform:translateY(-33.33%);} 66%,84%{ transform:translateY(-66.66%);} 100%{ transform:translateY(-100%);} }
+
+  /* ---- services editorial rows ---- */
+  .svc{ position:relative; display:grid; grid-template-columns:auto 1fr auto; gap:1.25rem 2rem; align-items:center; padding:2.2rem 0; border-top:1px solid var(--hair); transition:background-color .3s ease; }
+  .svc::after{ content:""; position:absolute; left:0; top:-1px; height:2px; width:0; background:var(--blue); transition:width .5s cubic-bezier(.16,1,.3,1); }
+  .svc:hover{ background:var(--blue-50); }
+  .svc:hover::after{ width:100%; }
+  .svc .idx{ font-family:'Chakra Petch',sans-serif; font-weight:700; font-size:clamp(2.4rem,6vw,4.4rem); line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(18,22,28,.28); transition:-webkit-text-stroke .3s ease,color .3s ease; }
+  .svc:hover .idx{ color:var(--blue); -webkit-text-stroke:1.5px var(--blue); }
+  .svc .arrow{ color:var(--ash); transition:transform .25s ease,color .25s ease; }
+  .svc:hover .arrow{ transform:translateX(6px); color:var(--blue); }
+  .svc h3{ font-size:clamp(1.35rem,3.2vw,2rem); font-weight:700; text-transform:uppercase; letter-spacing:.01em; }
+  @media (max-width:720px){
+    .svc{ grid-template-columns:auto 1fr; }
+    .svc .arrow{ display:none; }
+  }
+
+  /* ---- route / "dolazimo do vas" ---- */
+  .route{ display:flex; gap:1.5rem; position:relative; }
+  .route .node{ position:relative; flex:1; text-align:center; }
+  .route .dot{ width:52px; height:52px; border-radius:50%; border:1px solid var(--hair); background:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto; position:relative; z-index:2; }
+  .route .conn{ position:absolute; top:26px; left:0; right:0; height:2px; z-index:1;
+    background-image:repeating-linear-gradient(90deg,var(--blue) 0 8px,transparent 8px 22px); background-size:30px 2px; animation:march 1.3s linear infinite; }
+  @keyframes march{ to{ background-position:30px 0; } }
+  @media (max-width:760px){
+    .route{ flex-direction:column; gap:1.75rem; padding-left:26px; }
+    .route .node{ text-align:left; display:flex; align-items:center; gap:1rem; }
+    .route .dot{ margin:0; }
+    .route .conn{ top:0; bottom:0; left:25px; right:auto; width:2px; height:auto;
+      background-image:repeating-linear-gradient(0deg,var(--blue) 0 8px,transparent 8px 22px); background-size:2px 30px; animation:marchv 1.3s linear infinite; }
+  }
+  @keyframes marchv{ to{ background-position:0 30px; } }
+
+  /* ---- motorsport ---- */
+  .grid-bg{ background-image:linear-gradient(rgba(76,147,207,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(76,147,207,.12) 1px,transparent 1px); background-size:46px 46px; }
+  .lights{ display:flex; gap:10px; }
+  .lights i{ width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.04); transition:background-color .4s ease, box-shadow .4s ease; }
+  .is-visible .lights i{ background:var(--blue); box-shadow:0 0 18px rgba(76,147,207,.55); }
+  .is-visible .lights i:nth-child(1){ transition-delay:.05s; }
+  .is-visible .lights i:nth-child(2){ transition-delay:.15s; }
+  .is-visible .lights i:nth-child(3){ transition-delay:.25s; }
+  .is-visible .lights i:nth-child(4){ transition-delay:.35s; }
+  .is-visible .lights i:nth-child(5){ transition-delay:.45s; }
+  .streak{ position:absolute; height:2px; background:linear-gradient(90deg,transparent,var(--blue-400),transparent); width:0; transition:width 1.1s cubic-bezier(.16,1,.3,1) .2s; }
+  .is-visible .streak{ width:100%; }
+
+  /* ---- line-draw svg ---- */
+  .draw path{ stroke-dasharray:1; stroke-dashoffset:1; pathLength:1; }
+  .is-visible .draw path{ stroke-dashoffset:0; transition:stroke-dashoffset 1.1s ease; }
+
+  /* ---- placeholder markers ---- */
+  .ph{ color:var(--ash); border-bottom:1px dashed #B7BEC6; font-style:normal; }
+
+  /* ---- reveal ---- */
+  .js-reveal-ready [data-reveal]{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1); }
+  .js-reveal-ready [data-reveal].is-visible{ opacity:1; transform:none; }
+
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .skip{ position:fixed; left:16px; top:-60px; z-index:80; background:var(--blue); color:#fff; padding:10px 16px; border-radius:2px; transition:top .2s ease; font-family:'Chakra Petch',sans-serif; text-transform:uppercase; font-size:13px; letter-spacing:.05em; }
+  .skip:focus{ top:16px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+    .js-reveal-ready [data-reveal]{ opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#glavni" class="skip">Prijeđi na sadržaj</a>
+
+<!-- ============================ NAV ============================ -->
+<header id="nav" class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-hair">
+  <div class="wrap flex items-center justify-between h-[72px]">
+    <a href="#glavni" class="flex items-center gap-3 group" aria-label="Meow Autos — početna">
+      <img src="logo.jpg" alt="Meow Autos" width="36" height="36" class="w-9 h-9 rounded-full ring-1 ring-hair object-cover">
+      <span class="font-display font-bold tracking-[-0.01em] text-lg uppercase">Meow Autos</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-10" aria-label="Glavna navigacija">
+      <a href="#usluge" class="navlink font-medium">Usluge</a>
+      <a href="#o-nama" class="navlink font-medium">O nama</a>
+      <a href="#autosport" class="navlink font-medium">Autosport</a>
+      <a href="#kontakt" class="navlink font-medium">Kontakt</a>
+    </nav>
+
+    <div class="hidden lg:block">
+      <a href="#kontakt" class="btn btn-primary">Zatraži servis</a>
+    </div>
+
+    <button id="menu-toggle" class="lg:hidden inline-flex items-center gap-2 p-2 -mr-2" aria-label="Otvori izbornik" aria-expanded="false" aria-controls="menu">
+      <span class="mono">Izbornik</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============================ MOBILE MENU ============================ -->
+<div id="menu" class="lg:hidden" role="dialog" aria-modal="true" aria-label="Izbornik">
+  <div class="wrap h-full flex flex-col">
+    <div class="flex items-center justify-between h-[72px]">
+      <span class="font-display font-bold text-lg uppercase">Meow Autos</span>
+      <button id="menu-close" class="inline-flex items-center gap-2 p-2 -mr-2" aria-label="Zatvori izbornik">
+        <span class="mono" style="color:rgba(255,255,255,.6)">Zatvori</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav class="flex-1 flex flex-col justify-center gap-6" aria-label="Mobilna navigacija">
+      <a href="#usluge" class="m-link">Usluge</a>
+      <a href="#o-nama" class="m-link">O nama</a>
+      <a href="#autosport" class="m-link">Autosport</a>
+      <a href="#kontakt" class="m-link">Kontakt</a>
+    </nav>
+    <div class="pb-10">
+      <a href="#kontakt" class="btn btn-primary w-full justify-center">Zatraži servis</a>
+      <p class="mono mt-6" style="color:rgba(255,255,255,.4)">Mobilna jedinica · Dijagnostika · Asistencija</p>
+    </div>
+  </div>
+</div>
+
+<main id="glavni">
+
+<!-- ============================ HERO ============================ -->
+<section class="relative overflow-hidden">
+  <div class="wrap grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-10 items-center pt-14 pb-14 lg:pt-20 lg:pb-20">
+
+    <div>
+      <p class="kicker mono" data-reveal>Meow Autos</p>
+
+      <h1 class="h-display mt-6 text-[clamp(2.7rem,8.5vw,5.4rem)]">
+        <span class="block" data-reveal>Servis koji</span>
+        <span class="block" data-reveal style="transition-delay:.07s">dolazi do</span>
+        <span class="block text-blue" data-reveal style="transition-delay:.14s">vas.</span>
+      </h1>
+
+      <p class="mt-7 max-w-[46ch] text-[1.05rem] leading-[1.75] text-ash" data-reveal style="transition-delay:.2s">
+        Mobilni servis vozila, strojeva i opreme. Održavanje motornih vozila, usluge u cestovnom prometu
+        i tehnička podrška u autosportu — s alatom i dijagnostikom na vašoj lokaciji.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row gap-3" data-reveal style="transition-delay:.27s">
+        <a href="#kontakt" class="btn btn-primary justify-center">
+          Zatraži servis
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#usluge" class="btn btn-ghost justify-center">Pogledaj usluge</a>
+      </div>
+
+      <div class="mt-11 grid grid-cols-3 max-w-md gap-4" data-reveal style="transition-delay:.34s">
+        <div><span class="mono block" style="color:var(--blue)">01</span><span class="mono block mt-1">Mobilna jedinica</span></div>
+        <div><span class="mono block" style="color:var(--blue)">02</span><span class="mono block mt-1">Dijagnostika</span></div>
+        <div><span class="mono block" style="color:var(--blue)">03</span><span class="mono block mt-1">Asistencija 0–24</span></div>
+      </div>
+    </div>
+
+    <!-- blueprint panel -->
+    <div class="relative frame" data-reveal style="transition-delay:.1s">
+      <div class="relative cut-bl bg-blue text-white overflow-hidden aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
+        <div class="absolute inset-0 blueprint"></div>
+
+        <div class="speedlines"><i></i><i></i><i></i><i></i><i></i></div>
+
+        <!-- rotating wrench motif -->
+        <svg class="absolute -right-16 -bottom-16 w-[62%] opacity-[0.16] spin-slow" viewBox="0 0 120 120" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true">
+          <path d="M78 30a20 20 0 0 0-26 24L24 82a8 8 0 0 0 11 11l28-28a20 20 0 0 0 24-26l-13 13-11-3-3-11 13-13z" stroke-linejoin="round"/>
+        </svg>
+
+        <!-- logo badge -->
+        <div class="absolute inset-0 flex items-center justify-center p-8">
+          <div class="relative">
+            <div class="absolute inset-0 -m-3 rounded-full border border-white/40"></div>
+            <img src="logo.jpg" alt="Meow Autos maskota — mačak s ključem i čekićem" width="200" height="200"
+                 class="relative w-[40vw] max-w-[190px] sm:w-[190px] lg:w-[200px] rounded-full ring-4 ring-white/90 shadow-2xl object-cover">
+            <span class="absolute -bottom-2 -right-2 bg-white text-ink font-display font-bold text-sm px-2.5 py-1 rounded-[2px] rotate-[-6deg]">50</span>
+          </div>
+        </div>
+
+        <!-- sliding technical labels -->
+        <div class="absolute left-4 top-4 label-track h-[18px]">
+          <ul class="mono" style="color:rgba(255,255,255,.85); letter-spacing:.14em;">
+            <li>Status: spremni</li>
+            <li>Unit 01 · mobile</li>
+            <li>Torque ✓</li>
+          </ul>
+        </div>
+
+        <div class="absolute right-4 top-4 mono" style="color:rgba(255,255,255,.7)">ø 50</div>
+        <div class="absolute left-4 bottom-4 mono" style="color:rgba(255,255,255,.7)">MEOW·AUTOS / HR</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="wrap"><hr class="rule"></div>
+</section>
+
+<!-- ============================ USLUGE ============================ -->
+<section id="usluge" class="section" style="padding-top:clamp(3.5rem,7vw,5.5rem)">
+  <div class="wrap">
+    <div class="max-w-3xl">
+      <p class="kicker mono" data-reveal>Usluge</p>
+      <h2 class="h-display mt-5 text-[clamp(2rem,5.5vw,3.4rem)]" data-reveal>Četiri područja.<br>Jedan servis.</h2>
+      <p class="mt-5 text-ash leading-[1.75] max-w-[52ch]" data-reveal style="transition-delay:.06s">
+        Servis na lokaciji. Tehnička podrška kad je potrebna. Sve usluge dio su istog sustava rada.
+      </p>
+    </div>
+
+    <div class="mt-14">
+      <div class="svc" data-reveal>
+        <div class="idx">01</div>
+        <div>
+          <h3>Mobilni servis</h3>
+          <p class="mt-2 text-ash leading-[1.7] max-w-[54ch]">Mobilni servis za strojeve i opremu u radionicama. Dolazimo s alatom i dijagnostikom, bez transporta stroja.</p>
+          <p class="mono mt-3">Strojevi · Oprema · Radionice</p>
+        </div>
+        <svg class="arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="svc" data-reveal>
+        <div class="idx">02</div>
+        <div>
+          <h3>Cestovni promet</h3>
+          <p class="mt-2 text-ash leading-[1.7] max-w-[54ch]">Usluge i asistencija povezane s cestovnim prometom. Brz izlazak na teren i popravak na mjestu kvara.</p>
+          <p class="mono mt-3">Asistencija · Teren · Kvar na cesti</p>
+        </div>
+        <svg class="arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="svc" data-reveal>
+        <div class="idx">03</div>
+        <div>
+          <h3>Održavanje vozila</h3>
+          <p class="mt-2 text-ash leading-[1.7] max-w-[54ch]">Održavanje i servisiranje motornih vozila. Redovni servis, zamjena dijelova i dijagnostika kvarova.</p>
+          <p class="mono mt-3">Servis · Dijagnostika · Kvarovi</p>
+        </div>
+        <svg class="arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="svc" data-reveal style="border-bottom:1px solid var(--hair)">
+        <div class="idx">04</div>
+        <div>
+          <h3>Autosport</h3>
+          <p class="mt-2 text-ash leading-[1.7] max-w-[54ch]">Autosport, tehnička podrška i asistencija — priprema vozila, rad u boksu i pomoć tijekom vikenda utrke.</p>
+          <p class="mono mt-3">Tehnička podrška · Boks · Staza</p>
+        </div>
+        <svg class="arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MI DOLAZIMO DO VAS ============================ -->
+<section class="section bg-surface border-y border-hair">
+  <div class="wrap">
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-start">
+      <div>
+        <p class="kicker mono" data-reveal>Mobilni servis</p>
+        <h2 class="h-display mt-5 text-[clamp(2rem,5.5vw,3.4rem)]" data-reveal>Mi dolazimo<br>do vas.</h2>
+        <p class="mt-5 text-ash leading-[1.75] max-w-[46ch]" data-reveal style="transition-delay:.06s">
+          Kvar ne čeka. Ne čekamo ni mi. Mobilna jedinica izlazi na lokaciju s alatom, dijagnostikom
+          i dijelovima za brzi popravak.
+        </p>
+
+        <svg class="draw mt-8 w-full max-w-sm" height="12" viewBox="0 0 320 12" fill="none" data-reveal aria-hidden="true">
+          <path d="M0 6 H320" stroke="#0E63B3" stroke-width="2" pathLength="1"/>
+        </svg>
+      </div>
+
+      <div data-reveal style="transition-delay:.1s">
+        <div class="route lg:mt-6">
+          <span class="conn" aria-hidden="true"></span>
+
+          <div class="node">
+            <div class="dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E63B3" stroke-width="2" stroke-linecap="round"><path d="M4 4h4l2 12h9l2-8H7"/><circle cx="10" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/></svg>
+            </div>
+            <div>
+              <p class="font-display font-semibold mt-3 uppercase text-sm">Poziv</p>
+              <p class="mono mt-1">Opis kvara</p>
+            </div>
+          </div>
+
+          <div class="node">
+            <div class="dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E63B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
+            </div>
+            <div>
+              <p class="font-display font-semibold mt-3 uppercase text-sm">Izlazak</p>
+              <p class="mono mt-1">Na lokaciju</p>
+            </div>
+          </div>
+
+          <div class="node">
+            <div class="dot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E63B3" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <div>
+              <p class="font-display font-semibold mt-3 uppercase text-sm">Dijagnostika</p>
+              <p class="mono mt-1">Očitanje grešaka</p>
+            </div>
+          </div>
+
+          <div class="node">
+            <div class="dot" style="border-color:transparent;padding:0;overflow:hidden">
+              <img src="logo.jpg" alt="Meow Autos tehničar" width="52" height="52" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="font-display font-semibold mt-3 uppercase text-sm">Popravak</p>
+              <p class="mono mt-1">Na mjestu</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-6 border-t border-hair flex flex-wrap items-center justify-between gap-3" data-reveal>
+      <p class="mono">Izlazak na teren · područje po dogovoru</p>
+      <p class="mono">Alat · Dijagnostika · Dijelovi</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ AUTOSPORT ============================ -->
+<section id="autosport" class="section relative overflow-hidden bg-ink text-white">
+  <div class="absolute inset-0 grid-bg opacity-70"></div>
+  <div class="absolute inset-0" style="background:radial-gradient(60% 60% at 70% 20%,rgba(76,147,207,.18),transparent 70%)"></div>
+
+  <div class="wrap relative">
+    <div class="flex items-center justify-between">
+      <p class="kicker mono" style="color:rgba(255,255,255,.75)" data-reveal>Autosport</p>
+      <p class="mono hidden sm:block" style="color:rgba(255,255,255,.45)" data-reveal>Sector 01 — Pit / Track</p>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 mt-8 items-end">
+      <h2 class="h-display text-[clamp(2.3rem,7vw,4.6rem)]" data-reveal>
+        Preciznost<br>pod <span class="text-blue-400">pritiskom.</span>
+      </h2>
+
+      <div data-reveal style="transition-delay:.08s">
+        <p class="leading-[1.8]" style="color:rgba(255,255,255,.72)">
+          Rad uz vozilo kada vremena nema. Priprema, servis i brza dijagnostika prije i tijekom natjecanja —
+          uz jasnu komunikaciju s timom.
+        </p>
+      </div>
+    </div>
+
+    <div class="relative mt-14" data-reveal>
+      <span class="streak" style="top:-14px;left:0"></span>
+      <div class="grid sm:grid-cols-2 gap-x-12 gap-y-5">
+        <div class="spec"><span class="k">A</span><span class="lead"></span><span class="v" style="color:#fff">Tehnička podrška u boksu i uz stazu</span></div>
+        <div class="spec"><span class="k">B</span><span class="lead"></span><span class="v" style="color:#fff">Priprema i servis natjecateljskih vozila</span></div>
+        <div class="spec"><span class="k">C</span><span class="lead"></span><span class="v" style="color:#fff">Asistencija tijekom vikenda utrke</span></div>
+        <div class="spec"><span class="k">D</span><span class="lead"></span><span class="v" style="color:#fff">Brza dijagnostika pod vremenskim pritiskom</span></div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex items-center gap-5" data-reveal>
+      <div class="lights"><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="mono" style="color:rgba(255,255,255,.5)">Spreman za izlazak</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ O NAMA ============================ -->
+<section id="o-nama" class="section">
+  <div class="wrap grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16">
+    <div>
+      <p class="kicker mono" data-reveal>O nama</p>
+      <h2 class="h-display mt-5 text-[clamp(2rem,5.5vw,3.4rem)]" data-reveal>Nije samo<br>servis.</h2>
+      <p class="mt-5 text-ash leading-[1.75] max-w-[42ch]" data-reveal style="transition-delay:.06s">
+        Servis na lokaciji. Tehnička podrška kad je potrebna. Bez čekanja u redu i bez transporta
+        kada nije nužan.
+      </p>
+    </div>
+
+    <div class="lg:pt-4">
+      <div class="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+        <div data-reveal>
+          <p class="font-display font-semibold uppercase tracking-wide">Mobilnost</p>
+          <p class="mt-2 text-ash leading-[1.7]">Dolazimo do vozila, stroja ili opreme. Rad na terenu, u radionici ili u boksu.</p>
+        </div>
+        <div data-reveal style="transition-delay:.05s">
+          <p class="font-display font-semibold uppercase tracking-wide">Pouzdanost</p>
+          <p class="mt-2 text-ash leading-[1.7]">Dogovoreni termin znači dogovoreni termin. Javljamo se s procjenom prije rada.</p>
+        </div>
+        <div data-reveal style="transition-delay:.1s">
+          <p class="font-display font-semibold uppercase tracking-wide">Dijagnostika</p>
+          <p class="mt-2 text-ash leading-[1.7]">Očitanje grešaka i mjerenja prije zahvata. Popravak prema nalazu, ne prema pretpostavci.</p>
+        </div>
+        <div data-reveal style="transition-delay:.15s">
+          <p class="font-display font-semibold uppercase tracking-wide">Brzina</p>
+          <p class="mt-2 text-ash leading-[1.7]">Kratke pripreme i izlazak na teren bez odgode. Kvar rješavamo u što manje dolazaka.</p>
+        </div>
+        <div data-reveal style="transition-delay:.2s">
+          <p class="font-display font-semibold uppercase tracking-wide">Iskustvo</p>
+          <p class="mt-2 text-ash leading-[1.7]">Rad na vozilima, strojevima i natjecateljskoj opremi — od redovnog servisa do staze.</p>
+        </div>
+        <div data-reveal style="transition-delay:.25s">
+          <p class="font-display font-semibold uppercase tracking-wide">Pristup</p>
+          <p class="mt-2 text-ash leading-[1.7]">Jasna komunikacija i cijena prije rada. Bez nepotrebnih zahvata.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KONTAKT / CTA ============================ -->
+<!--
+  KONTAKT PODACI — još za dodati prije objave:
+  - Područje / regija rada
+-->
+<section id="kontakt" class="section relative overflow-hidden bg-blue text-white">
+  <div class="absolute inset-0 blueprint opacity-60"></div>
+  <div class="wrap relative grid lg:grid-cols-[1fr_0.9fr] gap-12 items-center">
+    <div>
+      <p class="kicker mono" style="color:rgba(255,255,255,.8)" data-reveal>Kontakt</p>
+      <h2 class="h-display mt-5 text-[clamp(2.4rem,7vw,4.6rem)]" data-reveal>Trebate servis?</h2>
+      <p class="mt-5 text-white/80 leading-[1.75] max-w-[42ch]" data-reveal style="transition-delay:.06s">
+        Javite nam se i dogovorite servis ili asistenciju.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3" data-reveal style="transition-delay:.12s">
+        <a href="mailto:Meka.autos@outlook.com" class="btn btn-light justify-center">
+          Kontaktirajte nas
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="tel:+385989893929" class="btn btn-outline-light justify-center">+385 98 893 929</a>
+      </div>
+    </div>
+
+    <div class="bg-white text-ink rounded-[2px] p-7 sm:p-9 frame" data-reveal style="transition-delay:.1s">
+      <p class="mono">Podaci za kontakt</p>
+      <div class="mt-5 space-y-4">
+        <div class="spec"><span class="k">Tel</span><span class="lead"></span><span class="v"><a href="tel:+385989893929" class="border-b border-hair hover:border-blue hover:text-blue transition-colors">+385 98 893 929</a></span></div>
+        <div class="spec"><span class="k">Mail</span><span class="lead"></span><span class="v"><a href="mailto:Meka.autos@outlook.com" class="border-b border-hair hover:border-blue hover:text-blue transition-colors">Meka.autos@outlook.com</a></span></div>
+        <div class="spec"><span class="k">Instagram</span><span class="lead"></span><span class="v"><a href="https://instagram.com/meow.autos" target="_blank" rel="noopener" class="border-b border-hair hover:border-blue hover:text-blue transition-colors">@meow.autos</a></span></div>
+        <div class="spec"><span class="k">Regija</span><span class="lead"></span><span class="v"><span class="ph">područje rada — dodati</span></span></div>
+      </div>
+      <p class="mono mt-6" style="color:var(--ash)">Područje rada — dodati prije objave</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="bg-ink text-white/60">
+  <div class="wrap py-14">
+    <div class="grid md:grid-cols-[1.4fr_1fr_1fr] gap-10">
+      <div>
+        <div class="flex items-center gap-3">
+          <img src="logo.jpg" alt="Meow Autos" width="28" height="28" class="w-7 h-7 rounded-full ring-1 ring-white/15 object-cover">
+          <span class="font-display font-bold text-white uppercase tracking-[-0.01em]">Meow Autos</span>
+        </div>
+        <p class="mt-4 text-sm leading-[1.7] max-w-xs">
+          Mobilni servis. Cestovni promet. Održavanje vozila. Autosport.
+        </p>
+      </div>
+
+      <nav aria-label="Podnožje — navigacija">
+        <p class="mono text-white/40">Navigacija</p>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="#usluge" class="hover:text-white transition-colors">Usluge</a></li>
+          <li><a href="#o-nama" class="hover:text-white transition-colors">O nama</a></li>
+          <li><a href="#autosport" class="hover:text-white transition-colors">Autosport</a></li>
+          <li><a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="mono text-white/40">Kontakt</p>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="tel:+385989893929" class="hover:text-white transition-colors">+385 98 893 929</a></li>
+          <li><a href="mailto:Meka.autos@outlook.com" class="hover:text-white transition-colors">Meka.autos@outlook.com</a></li>
+          <li><a href="https://instagram.com/meow.autos" target="_blank" rel="noopener" class="hover:text-white transition-colors">@meow.autos</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule my-10" style="background:rgba(255,255,255,.12)">
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
+      <span>© <span id="year">2026</span> Meow Autos. Sva prava pridržana.</span>
+      <span class="mono">Područje rada — dodati prije objave</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+
+  /* ---- nav shadow on scroll ---- */
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 8); };
+  onScroll();
+  addEventListener('scroll', onScroll, { passive:true });
+
+  /* ---- mobile menu ---- */
+  var toggle = document.getElementById('menu-toggle');
+  var menu   = document.getElementById('menu');
+  var closeBtn = document.getElementById('menu-close');
+
+  function setMenu(open){
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open){ var f = menu.querySelector('a, button'); if (f) f.focus(); }
+  }
+  toggle.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+  if (closeBtn) closeBtn.addEventListener('click', function(){ setMenu(false); toggle.focus(); });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', function(e){
+    if (!menu.classList.contains('open')) return;
+    if (e.key === 'Escape'){ setMenu(false); toggle.focus(); return; }
+    if (e.key === 'Tab'){
+      // simple focus trap while the full-screen menu is open
+      var f = menu.querySelectorAll('a[href], button:not([disabled])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---- reveal on scroll (no-JS + reduced-motion safe) ---- */
+  var els = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window){
+    root.classList.add('js-reveal-ready');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, { threshold:0, rootMargin:'0px 0px -8% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+    // Safety net: never let content stay hidden if an observer callback is missed
+    // (fast fling-scroll, background tab wake, headless capture timing).
+    setTimeout(function(){ els.forEach(function(el){ el.classList.add('is-visible'); }); }, 1400);
+  }
+
+  /* ---- year ---- */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# dev tooling / local only
+serve.mjs
+screenshot.mjs
+shot-mobile.mjs
+_chk-mobile.mjs
+package.json
+package-lock.json
+CLAUDE.md
+SKILL.md
+index.pbz.html
+
+# working files
+temporary screenshots/
+*.log
+.DS_Store
+Thumbs.db
